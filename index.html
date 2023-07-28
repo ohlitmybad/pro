@@ -150,31 +150,30 @@ width: 25%;
     <iframe id="strikerIframe3" src="https://datamb.football/testing/index.html"></iframe>
 
   
-<script>
-    // JavaScript to handle the dropdown selection
-    const positionSelect = document.getElementById('positionSelect');
-    const iframes = document.getElementsByTagName('iframe');
-    const darkModeBtn = document.querySelector('.dark-mode-btn');
+    <script>
+        // JavaScript to handle the dropdown selection and reload the iframe
+        const positionSelect = document.getElementById('positionSelect');
+        const iframes = document.getElementsByTagName('iframe');
+        const darkModeBtn = document.querySelector('.dark-mode-btn');
 
-    positionSelect.addEventListener('change', function () {
-        const selectedPosition = this.value;
+        positionSelect.addEventListener('change', function () {
+            const selectedPosition = this.value;
 
-        // Hide all iframes
-        for (const iframe of iframes) {
-            iframe.style.display = 'none';
-        }
-
-        // Show all iframes for the selected position
-        if (selectedPosition) {
-            const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe, #${selectedPosition}Iframe2, #${selectedPosition}Iframe3`);
-            for (const iframe of selectedIframes) {
-                iframe.style.display = 'block';
+            // Hide all iframes
+            for (const iframe of iframes) {
+                iframe.style.display = 'none';
             }
-        }
-    });
 
+            // Show and reload the selected iframe
+            if (selectedPosition) {
+                const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe, #${selectedPosition}Iframe2, #${selectedPosition}Iframe3`);
+                for (const iframe of selectedIframes) {
+                    iframe.style.display = 'block';
+                    iframe.src = iframe.src; // This line will reload the iframe
+                }
+            }
+        });
 
-</script>
-
+    </script>
 </body>
 </html>
