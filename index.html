@@ -1,11 +1,12 @@
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=0.49, user-scalable=no">
 
-
+<title>DataMB Pro</title>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	
 	<style>
@@ -16,9 +17,9 @@
         iframe {
             display: none;
             width: 100vw;
-            height: 890px;
             border: none; /* Remove iframe borders if desired */
-   
+       height: 100vh; /* Set the height to cover the entire page */
+
      }
 
 body {
@@ -99,7 +100,6 @@ width: 25%;
     <div class="logo-text"><a href="http://datamb.football">DataMB Pro</a></div>
   </div>
   <nav class="navigation">
-    <a href="http://datamb.football/glossary/" class="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guide</a>
   </nav>
  
 
@@ -109,6 +109,8 @@ width: 25%;
         <option value="goalkeeper">Radars</option>
         <option value="centreback">Plots</option>
         <option value="fullback">Search</option>
+        <option value="fullback1">Manage Account</option>
+
     </select>
 </header>
 
@@ -120,13 +122,14 @@ width: 25%;
    
 
     <!-- Iframes for different positions -->
-    <iframe id="goalkeeperIframe" src="https://datamb.football/testing/index.html"></iframe>
+    <iframe id="goalkeeperIframe" src="https://datamb.football/testing1/index.html"></iframe>
    
-    <iframe id="centrebackIframe" src="https://datamb.football/testing1/index.html"></iframe>
+    <iframe id="centrebackIframe" src="https://datamb.football/testing2/index.html"></iframe>
   
-    <iframe id="fullbackIframe" src="https://datamb.football/testing1/index.html"></iframe>
+    <iframe id="fullbackIframe" src="https://datamb.football/testing3/index.html"></iframe>
   
-  
+      <iframe id="fullback1Iframe" src="https://datamb.football/testing/index.html"></iframe>
+
   
     <script>
         // JavaScript to handle the dropdown selection and reload the iframe
