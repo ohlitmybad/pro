@@ -151,6 +151,7 @@ width: 25%;
                 const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe, #${selectedPosition}Iframe2, #${selectedPosition}Iframe3`);
                 for (const iframe of selectedIframes) {
                     iframe.style.display = 'block';
+			iframe.src = iframe.src; // This line will reload the iframe
                 }
             }
         });
