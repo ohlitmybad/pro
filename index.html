@@ -110,6 +110,7 @@ width: 25%;
         <option value="goalkeeper">Radars</option>
         <option value="centreback">Plots</option>
         <option value="fullback">Search</option>
+	            <option value="fullback2">Guide</option>
         <option value="fullback1">Manage Account</option>
 
     </select>
@@ -128,7 +129,8 @@ width: 25%;
     <iframe id="centrebackIframe" src="https://datamb.football/testing2/index.html"></iframe>
   
     <iframe id="fullbackIframe" src="https://datamb.football/testing3/index.html"></iframe>
-  
+        <iframe id="fullback2Iframe" src="https://datamb.football/proguide/index.html"></iframe>
+
       <iframe id="fullback1Iframe" src="https://datamb.football/testing/index.html"></iframe>
 
   
@@ -148,7 +150,7 @@ width: 25%;
 
             // Show and reload the selected iframe
             if (selectedPosition) {
-                const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe, #${selectedPosition}Iframe2, #${selectedPosition}Iframe3`);
+                const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe, #${selectedPosition}Iframe2, #${selectedPosition}Iframe3, #${selectedPosition}Iframe4`);
                 for (const iframe of selectedIframes) {
                     iframe.style.display = 'block';
 			iframe.src = iframe.src; // This line will reload the iframe
