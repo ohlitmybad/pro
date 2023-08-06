@@ -134,31 +134,45 @@ width: 25%;
 
       <iframe id="fullback1Iframe" src="https://datamb.football/signup/index.html"></iframe>
 
-  
-    <script>
-        // JavaScript to handle the dropdown selection and reload the iframe
-        const positionSelect = document.getElementById('positionSelect');
-        const iframes = document.getElementsByTagName('iframe');
-        const darkModeBtn = document.querySelector('.dark-mode-btn');
+  <script>
+  // JavaScript to handle the dropdown selection and reload the iframe
+  const positionSelect = document.getElementById('positionSelect');
+  const iframes = document.getElementsByTagName('iframe');
+  const darkModeBtn = document.querySelector('.dark-mode-btn');
 
-        positionSelect.addEventListener('change', function () {
-            const selectedPosition = this.value;
+  // Flag to track whether the iframe has been loaded before for each position
+  const iframeLoaded = {
+    goalkeeper: false,
+    centreback: false,
+    fullback: false,
+    fullback1: false,
+    fullback2: false
+  };
 
-            // Hide all iframes
-            for (const iframe of iframes) {
-                iframe.style.display = 'none';
-            }
+  positionSelect.addEventListener('change', function () {
+    const selectedPosition = this.value;
 
-            // Show and reload the selected iframe
-            if (selectedPosition) {
-                const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe, #${selectedPosition}Iframe2, #${selectedPosition}Iframe3, #${selectedPosition}Iframe4`);
-                for (const iframe of selectedIframes) {
-                    iframe.style.display = 'block';
-			iframe.src = iframe.src; // This line will reload the iframe
-                }
-            }
-        });
+    // Hide all iframes
+    for (const iframe of iframes) {
+      iframe.style.display = 'none';
+    }
 
-    </script>
+    // Show and reload the selected iframe (if it hasn't been loaded before)
+    if (selectedPosition) {
+      const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe`);
+      for (const iframe of selectedIframes) {
+        iframe.style.display = 'block';
+
+        // Check if the iframe has been loaded before
+        if (!iframeLoaded[selectedPosition]) {
+          // If not loaded before, set the flag to true and reload the iframe
+          iframeLoaded[selectedPosition] = true;
+          iframe.src = iframe.src; // This line will reload the iframe
+        }
+      }
+    }
+  });
+
+</script>
 </body>
 </html>
