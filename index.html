@@ -3,6 +3,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,13 +22,25 @@
 	
 	<style>
 
-    .big
-    {
-  font-size: 30px;
-  font-weight: bold;
+ 
+.manage-account {
+    padding: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 40px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    height: auto; /* Maintain aspect ratio */
+    display: flex;
+    margin:  auto; 
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-right: 10px; /* Add margin to the right of the select element */
 
+ 
 }
-
 
 
 .centered-image {
@@ -35,20 +49,19 @@
   margin: 0 auto; /* Center the image horizontally */
 }
 
-.warning {
-      background-color: #FFD700;
-      padding: 10px;
-    }
+
 
        body, html {
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         iframe {
             display: none;
             width: 100%;
             border: none; /* Remove iframe borders if desired */
-            height: 1120px;
+            height: 89vh;
+            
 
      }
 
@@ -60,6 +73,7 @@ background: #1a1a1a;
 .header {
   font-family: system-ui;
   padding: 20px;
+  height: 6vh;
   text-align: center;
   color: #fff;
   display: flex;
@@ -68,6 +82,12 @@ background: #1a1a1a;
 background: #1a1a1a;
 }
 
+		@media (max-width: 768px) {
+  .header {
+    height: 3vh; /* Adjusted height for mobile devices */
+  }
+}
+		
 .header .logo {
   display: flex;
   align-items: center;
@@ -86,12 +106,7 @@ color: #444444;
   font-weight: 600;
 }
 
-.header .navigation {
-  display: right;
-  align-items: center;
-      word-spacing: 1.3em; /* Adjust the spacing as needed */	
 
-}
 
 .header .button {
   margin: 0 10px;
@@ -113,12 +128,18 @@ header a {
   height: 24px;
   fill: #444444;
 }
-  #positionSelect {
-height:32px;
-margin-left: 8px;
-Font-size: 18px;
-color: grey;
-width: 25%;
+#positionSelect {
+    height:38px;
+    font-size: 18px;
+    color: grey;
+    width: 40%;
+    border-radius: 40px;
+    text-align-last: center; /* Use text-align-last instead of text-align */
+    margin:  auto; 
+    cursor: pointer;
+    -webkit-appearance: none; /* Remove default arrow */
+    margin-right: 10px; /* Add margin to the right of the select element */
+
 }
 
     </style>
@@ -129,25 +150,30 @@ width: 25%;
         <img src="https://datamb.football/logopro.png" alt="DataMB Pro" /></a>
     <div class="logo-text"><a href="http://datamb.football/pro">DataMB Pro</a></div>
   </div>
-  <nav class="navigation">
-  </nav>
+
  
 
  <label for="positionSelect"></label>
     <select id="positionSelect">
-        <option value="" selected disabled>Tools</option>
+      <option value="home">Home</option>
         <option value="goalkeeper">Radars</option>
-        <option value="centreback">Plots</option>
+        <option value="centreback">Plots (Top 7)</option>
+        <option value="centreback1">Plots (Other)</option>
 	<option value="fullback5">Rank (Top 5)</option>
 	<option value="fullback6">Rank (Top 7)</option>
+    <option value="fullback7">Rank (Other)</option>
         <option value="fullback">Search</option>
-       <option value="fullback3">Indexes</option>
-	           <option value="teams">Teams</option>
+        <option value="fullback3">Indexes</option>
+        <option value="teams">Teams</option>
 	           <option value="fullback4">AI (Beta)</option>
 	            <option value="fullback2">Guide</option>
         <option value="fullback1">Manage Account</option>
 
     </select>
+    <button class="btn btn-primary manage-account">Manage Account</button> 
+
+    
+    
 </header>
 
 	
@@ -158,20 +184,29 @@ width: 25%;
    
 
     <!-- Iframes for different positions -->
+    <iframe id="homeIframe" src="https://datamb.football/testing/index.html"></iframe>
+
+
     <iframe id="goalkeeperIframe" src="https://datamb.football/proradargk/index.html"></iframe>
    
     <iframe id="centrebackIframe" src="https://datamb.football/proplotgk24/index.html"></iframe>
+
+    <iframe id="centreback1Iframe" src="https://datamb.football/plotallgk/index.html"></iframe>
+
 
     <iframe id="fullback5Iframe" src="https://datamb.football/rank/index.html"></iframe>
 	  
 	<iframe id="fullback6Iframe" src="https://datamb.football/rank7/index.html"></iframe>	
 
-  
+    <iframe id="fullback7Iframe" src="https://datamb.football/rankall/index.html"></iframe>	
+
+
     <iframe id="fullbackIframe" src="https://datamb.football/prosearchnew/index.html"></iframe>
 
     <iframe id="fullback3Iframe" src="https://datamb.football/proindex/index.html"></iframe>	
-	
+
     <iframe id="teamsIframe" src="https://datamb.football/proteamradar/index.html"></iframe>
+
 
     <iframe id="fullback4Iframe" src="https://datamb.football/chat/index.html"></iframe>
   
@@ -179,47 +214,65 @@ width: 25%;
 
       <iframe id="fullback1Iframe" src="https://datamb.football/signup/index.html"></iframe>
 
-  <script>
-  // JavaScript to handle the dropdown selection and reload the iframe
-  const positionSelect = document.getElementById('positionSelect');
-  const iframes = document.getElementsByTagName('iframe');
-  const darkModeBtn = document.querySelector('.dark-mode-btn');
+  <script>// JavaScript to handle the dropdown selection and reload the iframe
+    const positionSelect = document.getElementById('positionSelect');
+    const iframes = document.getElementsByTagName('iframe');
+    const darkModeBtn = document.querySelector('.dark-mode-btn');
+    const manageAccountBtn = document.querySelector('.manage-account');
 
-  // Flag to track whether the iframe has been loaded before for each position
-  const iframeLoaded = {
-    goalkeeper: false,
-    centreback: false,
-    fullback: false,
-    teams: false,
-    fullback1: false,
-    fullback2: false,
-    fullback3: false,
-    fullback4: false
-  };
-
-  positionSelect.addEventListener('change', function () {
-    const selectedPosition = this.value;
-
-    // Hide all iframes
-    for (const iframe of iframes) {
-      iframe.style.display = 'none';
-    }
-
-    // Show and reload the selected iframe (if it hasn't been loaded before)
-    if (selectedPosition) {
-      const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe`);
-      for (const iframe of selectedIframes) {
-        iframe.style.display = 'block';
-
-        // Check if the iframe has been loaded before
-        if (!iframeLoaded[selectedPosition]) {
-          // If not loaded before, set the flag to true and reload the iframe
-          iframeLoaded[selectedPosition] = true;
-          iframe.src = iframe.src; // This line will reload the iframe
+    
+    // Flag to track whether the iframe has been loaded before for each position
+    const iframeLoaded = {
+        home: false,
+        goalkeeper: false,
+        centreback: false,
+        fullback: false,
+        teams: false,
+        fullback1: false,
+        fullback2: false,
+        fullback3: false,
+        fullback4: false
+    };
+    
+    positionSelect.addEventListener('change', function () {
+        const selectedPosition = this.value;
+    
+        // Hide all iframes
+        for (const iframe of iframes) {
+            iframe.style.display = 'none';
         }
-      }
+    
+        // Show and reload the selected iframe (if it hasn't been loaded before)
+        if (selectedPosition) {
+            const selectedIframes = document.querySelectorAll(`#${selectedPosition}Iframe`);
+            for (const iframe of selectedIframes) {
+                iframe.style.display = 'block';
+    
+                // Check if the iframe has been loaded before
+                if (!iframeLoaded[selectedPosition] && selectedPosition !== "home") {
+                // If not loaded before and not "Home", set the flag to true and reload the iframe
+                iframeLoaded[selectedPosition] = true;
+                iframe.src = iframe.src; // This line will reload the iframe
+            }
+        }
     }
-  });
+        // Check if the selected position is "Home" and reload the iframe
+        if (selectedPosition === "home") {
+        const homeIframe = document.getElementById("homeIframe");
+        homeIframe.src = homeIframe.src;
+    }
+    });
+    
+    // Simulate a change event on page load to show the first iframe by default
+    positionSelect.dispatchEvent(new Event('change'));
+
+    manageAccountBtn.addEventListener('click', function () {
+        // Set the value of the position select to "fullback1" (Manage Account)
+        positionSelect.value = 'fullback1';
+        // Trigger the change event to update the iframe
+        positionSelect.dispatchEvent(new Event('change'));
+    });
+    
 
 </script>
 
