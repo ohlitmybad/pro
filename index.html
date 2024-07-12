@@ -1,14 +1,7 @@
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.535, maximum-scale=0.535">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
 	<meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@DataMB_">
   <meta name="twitter:title" content="DataMB Pro">
@@ -16,7 +9,26 @@
   <meta name="twitter:image" content="https://datamb.football/vignettes/pro.png">
   <meta property="og:image" content="https://datamb.football/vignettes/pro.png">
 	<meta name="robots" content="noindex">
+	<script>
+ (function() {
+    var width = window.innerWidth;
 
+    // Find the viewport meta tag
+    var viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+        if (width < 701) {
+            var initialScale = width / 701;
+
+            viewportMeta.setAttribute('content', 'width=device-width, initial-scale=' + initialScale + ', maximum-scale=' + initialScale + ', user-scalable=no');
+        } else {
+            var fixedScale = 1;
+
+            viewportMeta.setAttribute('content', 'width=device-width, initial-scale=' + fixedScale + ', maximum-scale=' + fixedScale + ', user-scalable=no');
+        }
+    } 
+})();
+
+</script>
 <title>DataMB Pro</title>
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	
