@@ -191,10 +191,10 @@ header a {
         <option value="teams">Teams</option>
 	           <option value="fullback4">AI (Beta)</option>
 	            <option value="fullback2">Guide</option>
-        <option value="fullback1">Manage Account</option>
+        <option value="fullback1" data-i18n="manage_account.option">Manage Account</option>
 
     </select>
-    <button class="btn btn-primary manage-account">Manage Account</button> 
+    <button class="btn btn-primary manage-account" data-i18n="manage_account.button">Manage Account</button> 
 
     
     
@@ -302,6 +302,69 @@ if (selectedPosition === "fullback1") {
 </script>
 
 
-
+<script>
+    // Translation functionality
+    function setLanguage(language) {
+      localStorage.setItem('preferredLanguage', language);
+      // Update URL with language parameter
+      const url = new URL(window.location.href);
+      if (language === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', language);
+      }
+      window.history.pushState({}, '', url);
+      applyLanguage(language);
+    }
+    
+    function getPreferredLanguage() {
+      // Check URL parameter first
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      if (langParam) {
+        return langParam;
+      }
+      return localStorage.getItem('preferredLanguage') || getBrowserLanguage() || 'en';
+    }
+    
+    function getBrowserLanguage() {
+      return navigator.language.slice(0, 2);
+    }
+    
+    function applyLanguage(language) {
+      fetch(`locales/${language}.json`)
+        .then(response => response.json())
+        .then(translations => {
+          // Update text content for elements with data-i18n attribute
+          document.querySelectorAll('[data-i18n]').forEach(element => {
+            const keys = element.getAttribute('data-i18n').split('.');
+            let value = translations;
+            for (const key of keys) {
+              value = value[key];
+            }
+            if (value) {
+              element.textContent = value;
+            }
+          });
+    
+          // Update placeholders for elements with data-i18n-placeholder attribute
+          document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+            const keys = element.getAttribute('data-i18n-placeholder').split('.');
+            let value = translations;
+            for (const key of keys) {
+              value = value[key];
+            }
+            if (value) {
+              element.placeholder = value;
+            }
+          });
+            });
+    }
+    
+    // Initialize translations
+    const preferredLanguage = getPreferredLanguage();
+    applyLanguage(preferredLanguage);
+    
+    </script>
 </body>
 </html>
