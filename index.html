@@ -181,7 +181,7 @@ header a {
 
  <label for="positionSelect"></label>
     <select id="positionSelect">
-      <option value="home">Home</option>
+      <option value="home" data-i18n="home">Home</option>
         <option value="goalkeeper">Radars</option>
         <option value="centreback">Plots</option>
 	<option value="fullback6">Rank (Top 7)</option>
@@ -349,13 +349,9 @@ if (selectedPosition === "fullback1") {
               value = value[key];
             }
             if (value) {
-              if (element.tagName === 'META') {
-              element.setAttribute('content', value);
-          } else if (value.includes('<')) {
-              element.innerHTML = value;
-          } else {
+  
               element.textContent = value;
-          }          }
+                 }
           });
         }
       })
